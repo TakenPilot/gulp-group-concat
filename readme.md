@@ -1,7 +1,7 @@
 Gulp Group Concat
 -----------------
 
-Reads data, partials and helpers from asynchronous sources like a databases, file systems, or promises.
+Concatenates and filters groups of files into a smaller number of files.
 
 [![Build Status](https://travis-ci.org/TakenPilot/gulp-group-concat.svg?branch=master)](https://travis-ci.org/TakenPilot/gulp-group-concat)
 
@@ -13,7 +13,11 @@ Reads data, partials and helpers from asynchronous sources like a databases, fil
 
 [![NPM version](https://badge.fury.io/js/gulp-group-concat.svg)](http://badge.fury.io/js/gulp-group-concat)
 
-##Example with JavaScript:
+##Concatenates files together that match minimatch-styled file globs.
+
+###Example:
+
+Groups all files into `final.inline.js` and `final.test.js`.
 
 ```JavaScript
 var gulp = require('gulp'),
@@ -27,7 +31,46 @@ gulp.src('**/*.js')
   .pipe(gulp.dest('dest'));
 ```
 
-##Example with source-maps and CSS:
+##Duplicates files that match more than one file glob.
+
+###Example:
+
+Put components into `components.js` but everything into `all.js`.
+
+```JavaScript
+var gulp = require('gulp'),
+  groupConcat = require('group-concat');
+
+gulp.src('**/*.js')
+  .pipe(groupConcat({
+    'components.js': '**/*.component.js',
+    'all.js': '**/*.js'
+  }))
+  .pipe(gulp.dest('dest'));
+```
+
+##Filters files that do not match any file globs.
+
+###Example:
+
+Include all files that are not tests into `no-tests.js`.
+
+```JavaScript
+var gulp = require('gulp'),
+  groupConcat = require('group-concat');
+
+gulp.src('**/*.js')
+  .pipe(groupConcat({
+    'no-tests.js': '!**/*.test.js'
+  }))
+  .pipe(gulp.dest('dest'));
+```
+
+##Supports source-maps
+
+Source-maps are duplicated, filtered, and concatenated as expects.
+
+###Example with CSS
 
 ```JavaScript
 var gulp = require('gulp'),
