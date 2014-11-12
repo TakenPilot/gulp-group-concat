@@ -1,6 +1,6 @@
 {
   "name": "gulp-group-concat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Concats groups of files into a smaller number of files",
   "main": "index.js",
   "repository": "http://github.com/TakenPilot/gulp-static-handlebars.git",
