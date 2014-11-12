@@ -1,0 +1,9 @@
+html {
+  background-color: red;
+}
+
+@media screen and (max-width: 700rem) {
+  a {
+    height: 20rem;
+  }
+}

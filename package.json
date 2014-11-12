@@ -1,0 +1,49 @@
+{
+  "name": "gulp-group-concat",
+  "version": "0.0.1",
+  "description": "Concats groups of files into a smaller number of files",
+  "main": "index.js",
+  "repository": "http://github.com/TakenPilot/gulp-static-handlebars.git",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "index.js",
+      "data-cover-never": "node_modules"
+    }
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "concat",
+    "group",
+    "filter",
+    "sourcemaps",
+    "multi",
+    "pipe",
+    "stream"
+  ],
+  "author": "Dane Stuckel",
+  "license": "ISC",
+  "dependencies": {
+    "concat-with-sourcemaps": "^0.1.6",
+    "gulp-util": "^3.0.1",
+    "lodash": "^2.4.1",
+    "minimatch": "^1.0.0",
+    "through2": "^0.6.3",
+    "vinyl-sourcemaps-apply": "^0.1.4"
+  },
+  "devDependencies": {
+    "blanket": "^1.1.6",
+    "chai": "^1.10.0",
+    "coveralls": "^2.11.2",
+    "gulp": "^3.8.10",
+    "gulp-pleeease": "^1.0.4",
+    "gulp-sourcemaps": "^1.2.8",
+    "mocha-lcov-reporter": "0.0.1",
+    "mocha": "^2.0.1",
+    "sinon": "^1.11.1",
+    "vinyl-buffer": "^1.0.0"
+  }
+}
