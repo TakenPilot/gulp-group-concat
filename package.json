@@ -1,9 +1,9 @@
 {
   "name": "gulp-group-concat",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Concats groups of files into a smaller number of files",
   "main": "index.js",
-  "repository": "http://github.com/TakenPilot/gulp-static-handlebars.git",
+  "repository": "http://github.com/TakenPilot/gulp-group-concat.git",
   "scripts": {
     "test": "./node_modules/.bin/mocha -r blanket -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js"
   },
