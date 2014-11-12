@@ -55,6 +55,36 @@ function tests(withBuffer) {
         done();
       }))
   });
+
+  it('can ask for negation', function (done) {
+    gulp.src('./test/fixtures/*.css')
+      .pipe(withBuffer ? buffer() : gUtil.noop())
+      .pipe(sourcemaps.init())
+      .pipe(please())
+      .pipe(groupConcat({
+        'myFile1': '!**/*1*'
+      }))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gUtil.buffer(function (err, files) {
+        expect(files).to.have.length(2);
+        done();
+      }))
+  });
+
+  it('can ask for negation within glob', function (done) {
+    gulp.src('./test/fixtures/*.css')
+      .pipe(withBuffer ? buffer() : gUtil.noop())
+      .pipe(sourcemaps.init())
+      .pipe(please())
+      .pipe(groupConcat({
+        'myFile1': ['**/*', '!**/*1*']
+      }))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gUtil.buffer(function (err, files) {
+        expect(files).to.have.length(2);
+        done();
+      }))
+  });
 }
 
 describe('with buffers', function () {

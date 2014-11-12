@@ -26,9 +26,20 @@ module.exports = function (fileGlobs, opt) {
 
   return through.obj(function (file, encoding, cb) {
     _.each(fileGlobs, function (fileglob, filename) {
-      if(minimatch(file.path, fileglob)) {
-        addContent(filename, file)
+      if(_.isArray(fileglob)) {
+
+        var isMatch = _.all(fileglob, function (globString) {
+          return minimatch(file.path, globString);
+        });
+
+        if(isMatch) {
+          addContent(filename, file)
+        }
+
+      } else if (_.isString(fileglob) && minimatch(file.path, fileglob)) {
+          addContent(filename, file)
       }
+
     });
 
     //save the files until they're done streaming/buffering
