@@ -1,5 +1,5 @@
 Gulp Group Concat
------------------
+=================
 
 Concatenates and filters groups of files into a smaller number of files.
 
@@ -13,7 +13,7 @@ Concatenates and filters groups of files into a smaller number of files.
 
 [![NPM version](https://badge.fury.io/js/gulp-group-concat.svg)](http://badge.fury.io/js/gulp-group-concat)
 
-##Concatenates files together that match minimatch-styled file globs.
+##Concatenate files that match minimatch-styled file globs
 
 ###Example:
 
@@ -31,7 +31,7 @@ gulp.src('**/*.js')
   .pipe(gulp.dest('dest'));
 ```
 
-##Duplicates files that match more than one file glob.
+##Duplicate files that match more than one file glob
 
 ###Example:
 
@@ -49,7 +49,7 @@ gulp.src('**/*.js')
   .pipe(gulp.dest('dest'));
 ```
 
-##Filters files that do not match any file globs.
+##Filter files that do not match any file glob
 
 ###Example:
 
@@ -70,7 +70,7 @@ gulp.src('**/*.js')
 
 Source-maps are duplicated, filtered, and concatenated as expects.
 
-###Example with CSS
+###Example with CSS:
 
 ```JavaScript
 var gulp = require('gulp'),

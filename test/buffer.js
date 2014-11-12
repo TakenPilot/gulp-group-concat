@@ -126,7 +126,7 @@ describe('config failure', function () {
         .pipe(gUtil.buffer(function (err, files) {
           done(err || files);
         }))
-    }).to.throw()
+    }).to.throw();
     done();
   });
 
