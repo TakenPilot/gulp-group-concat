@@ -1,4 +1,5 @@
-var gulp = require('gulp'),
+var _ = require('lodash'),
+  gulp = require('gulp'),
   expect = require('chai').expect,
   gUtil = require('gulp-util'),
   groupConcat = require('../.'),
@@ -52,6 +53,10 @@ function tests(withBuffer) {
       .pipe(sourcemaps.write('.'))
       .pipe(gUtil.buffer(function (err, files) {
         expect(files).to.have.length(4);
+        expect(_.some(files, function (file) {
+          //one or more files have a reference to this filename (thus having a sourcemap)
+          return file.contents.toString().indexOf('genericCss1.css') > -1;
+        })).to.equal(true);
         done();
       }))
   });
@@ -85,6 +90,24 @@ function tests(withBuffer) {
         done();
       }))
   });
+
+  it('can duplicate', function (done) {
+    gulp.src('./test/fixtures/*')
+      .pipe(withBuffer ? buffer() : gUtil.noop())
+      .pipe(groupConcat({
+        'myFile1': '**/*',
+        'myFile2': '**/*'
+      }))
+      .pipe(gUtil.buffer(function (err, files) {
+        expect(files).to.have.length(2);
+        files.forEach(function (file) {
+          //all files contain these
+          expect(file.contents.toString()).to.contain('Some generic text in the first text file');
+          expect(file.contents.toString()).to.contain('Some generic text in the second text file');
+        });
+        done();
+      }))
+  });
 }
 
 describe('with buffers', function () {
@@ -93,4 +116,18 @@ describe('with buffers', function () {
 
 describe('without buffers', function () {
   tests(false);
+});
+
+describe('config failure', function () {
+  it('throws on being given array', function (done) {
+    expect(function () {
+      gulp.src('./test/fixtures/*')
+        .pipe(groupConcat(['**/*']))
+        .pipe(gUtil.buffer(function (err, files) {
+          done(err || files);
+        }))
+    }).to.throw()
+    done();
+  });
+
 });
