@@ -15,8 +15,6 @@ Concatenates and filters groups of files into a smaller number of files.
 
 ##Concatenate files that match minimatch-styled file globs
 
-###Example:
-
 Groups all files into `final.inline.js` and `final.test.js`.
 
 ```JavaScript
@@ -32,8 +30,6 @@ gulp.src('**/*.js')
 ```
 
 ##Duplicate files that match more than one file glob
-
-###Example:
 
 Put components into `components.js` but everything into `all.js`.
 
@@ -51,8 +47,6 @@ gulp.src('**/*.js')
 
 ##Filter files that do not match any file glob
 
-###Example:
-
 Include all files that are not tests into `no-tests.js`.
 
 ```JavaScript
@@ -69,8 +63,6 @@ gulp.src('**/*.js')
 ##Supports source-maps
 
 Source-maps are duplicated, filtered, and concatenated as expects.
-
-###Example with CSS:
 
 ```JavaScript
 var gulp = require('gulp'),
@@ -92,9 +84,7 @@ gulp.src('./test/fixtures/*.css')
 ##Install
 
 ```Sh
-
 npm install gulp-group-concat
-
 ```
 
 ##Running Tests
