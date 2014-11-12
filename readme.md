@@ -15,7 +15,7 @@ Concatenates and filters groups of files into a smaller number of files.
 
 ##Concatenate files that match minimatch-styled file globs
 
-Groups all files into `final.inline.js` and `final.test.js`.
+Groups all files into either `final.inline.js` and `final.test.js`.
 
 ```JavaScript
 var gulp = require('gulp'),
@@ -23,7 +23,7 @@ var gulp = require('gulp'),
 
 gulp.src('**/*.js')
   .pipe(groupConcat({
-    'final.inline.js': '**/*.inline.js',
+    'final.inline.js': ['**/*.js', '!**/*.test.js'],
     'final.test.js': '**/*.test.js'
   }))
   .pipe(gulp.dest('dest'));
@@ -31,7 +31,7 @@ gulp.src('**/*.js')
 
 ##Duplicate files that match more than one file glob
 
-Put components into `components.js` but everything into `all.js`.
+Put only components into `components.js` but include everything in `all.js`.
 
 ```JavaScript
 var gulp = require('gulp'),
@@ -39,7 +39,7 @@ var gulp = require('gulp'),
 
 gulp.src('**/*.js')
   .pipe(groupConcat({
-    'components.js': '**/*.component.js',
+    'components.js': '**/components/*.js',
     'all.js': '**/*.js'
   }))
   .pipe(gulp.dest('dest'));
