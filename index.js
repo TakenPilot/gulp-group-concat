@@ -28,7 +28,6 @@ module.exports = function (fileGlobs, opt) {
 
     _.each(fileGlobs, function (fileglob, filename) {
       var matches = glob.match(fileglob, file.path);
-      console.log(fileglob, file.path, filename, matches);
       if (matches.length) {
         addContent(filename, file)
       }

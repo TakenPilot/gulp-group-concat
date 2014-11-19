@@ -130,7 +130,6 @@ function tests(withBuffer) {
         'myFile': ['**/*.css']
       }))
       .pipe(gUtil.buffer(function (err, files) {
-        console.log(files);
         expect(files).to.have.length(1);
         files.forEach(function (file) {
           //all files contain these
