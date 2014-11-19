@@ -62,16 +62,13 @@ function tests(withBuffer) {
   });
 
   it('can ask for negation', function (done) {
-    gulp.src('./test/fixtures/*.css')
+    gulp.src('./test/fixtures/*')
       .pipe(withBuffer ? buffer() : gUtil.noop())
-      .pipe(sourcemaps.init())
-      .pipe(please())
       .pipe(groupConcat({
-        'myFile1': '!**/*1*'
+        'myFile1': ['**/*', '!**/*.css']
       }))
-      .pipe(sourcemaps.write('.'))
       .pipe(gUtil.buffer(function (err, files) {
-        expect(files).to.have.length(2);
+        expect(files).to.have.length(1);
         done();
       }))
   });
@@ -121,6 +118,24 @@ function tests(withBuffer) {
           //all files contain these
           expect(file.contents.toString()).to.contain('Some generic text in the first text file');
           expect(file.contents.toString()).to.contain('Some generic text in the second text file');
+        });
+        done();
+      }))
+  });
+
+  it('does not match everything always', function (done) {
+    gulp.src('./test/fixtures/*')
+      .pipe(withBuffer ? buffer() : gUtil.noop())
+      .pipe(groupConcat({
+        'myFile': ['**/*.css']
+      }))
+      .pipe(gUtil.buffer(function (err, files) {
+        console.log(files);
+        expect(files).to.have.length(1);
+        files.forEach(function (file) {
+          //all files contain these
+          expect(file.contents.toString()).to.not.contain('Some generic text in the first text file');
+          expect(file.contents.toString()).to.not.contain('Some generic text in the second text file');
         });
         done();
       }))

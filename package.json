@@ -1,6 +1,6 @@
 {
   "name": "gulp-group-concat",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Concats groups of files into a smaller number of files",
   "main": "index.js",
   "repository": "http://github.com/TakenPilot/gulp-group-concat.git",
