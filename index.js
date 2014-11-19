@@ -27,7 +27,8 @@ module.exports = function (fileGlobs, opt) {
   return through.obj(function (file, encoding, cb) {
 
     _.each(fileGlobs, function (fileglob, filename) {
-      var matches = glob.match(fileglob, file.path);
+      var path = file.cwd ? file.path.substring(file.cwd.length + 1) : file.path;
+      var matches = glob.match(fileglob, path);
       if (matches.length) {
         addContent(filename, file)
       }

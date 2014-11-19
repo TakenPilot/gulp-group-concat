@@ -139,6 +139,23 @@ function tests(withBuffer) {
         done();
       }))
   });
+
+  it('matches from base', function (done) {
+    gulp.src('test/fixtures/*')
+      .pipe(withBuffer ? buffer() : gUtil.noop())
+      .pipe(groupConcat({
+        'myFile': ['test/fixtures/*.css']
+      }))
+      .pipe(gUtil.buffer(function (err, files) {
+        expect(files).to.have.length(1);
+        files.forEach(function (file) {
+          //all files contain these
+          expect(file.contents.toString()).to.not.contain('Some generic text in the first text file');
+          expect(file.contents.toString()).to.not.contain('Some generic text in the second text file');
+        });
+        done();
+      }))
+  });
 }
 
 describe('with buffers', function () {
