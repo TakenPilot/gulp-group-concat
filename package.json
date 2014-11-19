@@ -1,6 +1,6 @@
 {
   "name": "gulp-group-concat",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "Concats groups of files into a smaller number of files",
   "main": "index.js",
   "repository": "http://github.com/TakenPilot/gulp-group-concat.git",
@@ -29,9 +29,9 @@
   "license": "ISC",
   "dependencies": {
     "concat-with-sourcemaps": "^0.1.6",
+    "globule": "^0.2.0",
     "gulp-util": "^3.0.1",
     "lodash": "^2.4.1",
-    "minimatch": "^1.0.0",
     "through2": "^0.6.3",
     "vinyl-sourcemaps-apply": "^0.1.4"
   },

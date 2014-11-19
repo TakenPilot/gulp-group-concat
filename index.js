@@ -2,7 +2,7 @@ var _ = require('lodash'),
   through = require('through2'),
   gUtil = require('gulp-util'),
   pluginName = 'gulp-group-concat',
-  minimatch = require("minimatch"),
+  glob = require("globule"),
   Concat = require('concat-with-sourcemaps'),
   vinylSourcemapsApply = require('vinyl-sourcemaps-apply');
 
@@ -25,21 +25,11 @@ module.exports = function (fileGlobs, opt) {
   }
 
   return through.obj(function (file, encoding, cb) {
+
     _.each(fileGlobs, function (fileglob, filename) {
-      if(_.isArray(fileglob)) {
-
-        var isMatch = _.all(fileglob, function (globString) {
-          return minimatch(file.path, globString);
-        });
-
-        if(isMatch) {
-          addContent(filename, file)
-        }
-
-      } else if (_.isString(fileglob) && minimatch(file.path, fileglob)) {
-          addContent(filename, file)
+      if (glob.match(fileglob, file.path)) {
+        addContent(filename, file)
       }
-
     });
 
     //save the files until they're done streaming/buffering

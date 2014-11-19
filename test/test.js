@@ -108,6 +108,23 @@ function tests(withBuffer) {
         done();
       }))
   });
+
+  it('matches on any positive', function (done) {
+    gulp.src('./test/fixtures/*')
+      .pipe(withBuffer ? buffer() : gUtil.noop())
+      .pipe(groupConcat({
+        'myFile': ['**/thing', '**/*']
+      }))
+      .pipe(gUtil.buffer(function (err, files) {
+        expect(files).to.have.length(1);
+        files.forEach(function (file) {
+          //all files contain these
+          expect(file.contents.toString()).to.contain('Some generic text in the first text file');
+          expect(file.contents.toString()).to.contain('Some generic text in the second text file');
+        });
+        done();
+      }))
+  });
 }
 
 describe('with buffers', function () {
