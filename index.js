@@ -12,16 +12,52 @@ module.exports = function (fileGlobs, opt) {
     throw new gUtil.PluginError(pluginName, 'First argument must be an object of names and file globs')
   }
 
-  var sourceStreams = {};
+  var outFiles = {};
+  var foundSourceMap = false;
+
+  function concatBuffersOnly(files, filename) {
+    //no source maps, do it fast
+    for(var i = 0; i < files.length; i++) {
+      files[i] = files[i].contents;
+    }
+
+    return new gUtil.File({
+      cwd: "",
+      base: "",
+      path: filename,
+      contents: Buffer.concat(files)
+    });
+  }
+
+  function concatWithSourceMap(files, filename) {
+    var outFile, i, sourceStream, inFiles = {};
+    for(i = 0; i < files.length; i++) {
+      if (!inFiles[files[i].path]) {
+        inFiles[files[i].path] = files[i].contents.toString();
+      }
+    }
+    sourceStream = new Concat(filename, opt.newLine || '\n');
+    for(i = 0; i < files.length; i++) {
+      sourceStream.add(files[i].relative, inFiles[files[i].path], files[i].sourceMap);
+    }
+    outFile = new gUtil.File({
+      cwd: "",
+      base: "",
+      path: filename,
+      contents: new Buffer(sourceStream.content)
+    });
+    vinylSourcemapsApply(outFile, sourceStream.sourceMap);
+    return outFile;
+  }
 
   function addContent(filename, file) {
-    var contents = file.contents.toString();
-    if (!sourceStreams[filename]) {
-      sourceStreams[filename] = new Concat(filename, opt.newLine || '\n');
-      sourceStreams[filename].add(file.relative, contents, file.sourceMap);
-    } else {
-      sourceStreams[filename].add(file.relative, contents, file.sourceMap);
+    if (!outFiles[filename]) {
+      outFiles[filename] = [];
     }
+    if (file.sourceMap) {
+      foundSourceMap = true;
+    }
+    outFiles[filename].push(file);
   }
 
   return through.obj(function (file, encoding, cb) {
@@ -40,16 +76,8 @@ module.exports = function (fileGlobs, opt) {
     var self = this;
 
     //once they're done giving us files, we give them the concatenated results
-    _.each(sourceStreams, function (sourceStream, filename) {
-      var file =new gUtil.File({
-        cwd: "",
-        base: "",
-        path: filename,
-        contents: new Buffer(sourceStream.content)});
-
-
-        vinylSourcemapsApply(file, sourceStream.sourceMap);
-      self.push(file);
+    _.each(outFiles, function (files, filename) {
+      self.push(foundSourceMap ? concatWithSourceMap(files, filename) : concatBuffersOnly(files, filename));
     });
 
     cb()
