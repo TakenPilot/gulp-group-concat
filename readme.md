@@ -19,7 +19,7 @@ Groups all files into either `final.inline.js` and `final.test.js`.
 
 ```JavaScript
 var gulp = require('gulp'),
-  groupConcat = require('group-concat');
+  groupConcat = require('gulp-group-concat');
 
 gulp.src('**/*.js')
   .pipe(groupConcat({
@@ -35,7 +35,7 @@ Put only components into `components.js` but include everything in `all.js`.
 
 ```JavaScript
 var gulp = require('gulp'),
-  groupConcat = require('group-concat');
+  groupConcat = require('gulp-group-concat');
 
 gulp.src('**/*.js')
   .pipe(groupConcat({
@@ -51,7 +51,7 @@ Include all files that are not tests into `no-tests.js`.
 
 ```JavaScript
 var gulp = require('gulp'),
-  groupConcat = require('group-concat');
+  groupConcat = require('gulp-group-concat');
 
 gulp.src('**/*.js')
   .pipe(groupConcat({
@@ -66,7 +66,7 @@ Source-maps are duplicated, filtered, and concatenated as expects.
 
 ```JavaScript
 var gulp = require('gulp'),
-  groupConcat = require('group-concat'),
+  groupConcat = require('gulp-group-concat'),
   sourcemaps = require('gulp-sourcemaps'),
   please = require('gulp-pleeease');
 
