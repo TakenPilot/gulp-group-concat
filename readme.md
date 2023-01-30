@@ -1,17 +1,10 @@
 Gulp Group Concat
 =================
 
+> **⚠ Warning**
+> This library is deprecated. The underlying libraries that this package relies on are either unmaintained or have security warnings. I'm deprecating this project until someone rewrites it with modern tooling.
+
 Concatenates and filters groups of files into a smaller number of files.
-
-[![Build Status](https://travis-ci.org/TakenPilot/gulp-group-concat.svg?branch=master)](https://travis-ci.org/TakenPilot/gulp-group-concat)
-
-[![Code Climate](https://codeclimate.com/github/TakenPilot/gulp-group-concat/badges/gpa.svg)](https://codeclimate.com/github/TakenPilot/gulp-group-concat)
-
-[![Coverage Status](https://img.shields.io/coveralls/TakenPilot/gulp-group-concat.svg)](https://coveralls.io/r/TakenPilot/gulp-group-concat?branch=master)
-
-[![Dependencies](https://david-dm.org/TakenPilot/gulp-group-concat.svg?style=flat)](https://david-dm.org/TakenPilot/gulp-group-concat.svg?style=flat)
-
-[![NPM version](https://badge.fury.io/js/gulp-group-concat.svg)](http://badge.fury.io/js/gulp-group-concat)
 
 ##Concatenate files that match minimatch-styled file globs
 
